@@ -1,0 +1,7 @@
+#api_model_homepage:
+#    pattern:  /hello/{name}
+#    defaults: { _controller: ApiModelBundle:Default:index }
+    
+album:
+    type: rest
+    resource: Api\ModelBundle\Controller\AlbumController

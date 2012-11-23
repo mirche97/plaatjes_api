@@ -10,7 +10,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
     form:            true
-    csrf_protection: true
+    csrf_protection: false
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
@@ -57,3 +57,53 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+jms_serializer:
+    handlers:
+        object_based: false
+        datetime:
+            format: %date_time_format%
+            default_timezone: "UTC" # defaults to whatever timezone set in php.ini or via date_default_timezone_set
+        array_collection: true
+        form_error: true
+        constraint_violation: true
+        doctrine_proxy: true
+
+    property_naming:
+        separator:
+        lower_case: false
+
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+
+fos_rest:
+    routing_loader:
+        default_format: xml
+    view:
+        view_response_listener: false
+    format_listener:
+        default_priorities: [html, xml]
+        fallback_format: html
+        # if false, then using accept-headers or adding .xml to your url will override ?_format=xml
+        # TODO to use the accept header, this should be on false, but for development the ?_format still needs to work
+        prefer_extension: true
+        
+parameters:
+    # Number of resources we want to display per page
+    rest.max_resource_per_page: 5
+    # Note that we are using a different kernel. For more info see this class
+    # http_kernel.class : cruisetravel\CommonBundle\Component\EsiHttpKernel
+    # Use the X-API-User and X-API-Content headerse for authorisation.
+    x-headers-enabled: true
+    # if enabled:false, then it uses the test user and content below
+    test-x-api-user: johndoe
+    test-x-api-context: website
+
+    date_time_format: "Y-m-d H:i:s"

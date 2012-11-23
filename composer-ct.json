@@ -1,9 +1,10 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "plaatjes_api",
+    "description": "Plaatjes Backend API",
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "v2.1.3",
@@ -16,11 +17,15 @@
         "sensio/distribution-bundle": "v2.1.3",
         "sensio/framework-extra-bundle": "v2.1.3",
         "sensio/generator-bundle": "v2.1.3",
-        "jms/security-extra-bundle": "1.2.*",
-        "jms/di-extra-bundle": "1.1.*",
+        "jms/security-extra-bundle": "1.3.0",
+        "jms/di-extra-bundle": "1.2.0",
         "friendsofsymfony/rest-bundle": "0.9.0",
         "jms/serializer-bundle": "0.9.0",
-        "doctrine/doctrine-fixtures-bundle": "v2.1.0-ALPHA"
+        "doctrine/doctrine-fixtures-bundle": "v2.1.0-ALPHA",
+        "knplabs/knp-paginator-bundle": "v2.2",
+        "nelmio/solarium-bundle": "v1.0.0",
+        "zircote/swagger-php": "dev-master"
+       
     },
     "scripts": {
         "post-install-cmd": [
@@ -35,6 +40,10 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
+    },
+    "config": {
+        "bin-dir": "bin",
+        "process-timeout" : 4000
     },
     "minimum-stability": "dev",
     "extra": {

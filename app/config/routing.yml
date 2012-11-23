@@ -1,6 +1,14 @@
 api_model:
-    resource: "@apiModelBundle/Controller/"
-    type:     annotation
+    resource: "@ApiModelBundle/Resources/config/routing.yml"
+    #type:     rest
+    prefix:   /api
+
+api_admin:
+    resource: "@ApiAdminBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+acme_hello:
+    resource: "@AcmeHelloBundle/Resources/config/routing.yml"
     prefix:   /
 
 # Internal routing configuration to handle ESI
