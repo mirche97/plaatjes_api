@@ -1,0 +1,73 @@
+<?php
+namespace api\ModelBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Description of Album
+ * @ORM\Entity()
+ * @ORM\Table ()
+ */
+class Album
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * 
+     * @var integer 
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(name="title")
+     * 
+     * @var string 
+     */
+    protected $title;
+    
+    /*r*
+     * @ORM\OneToMany(targetEntity="Card", mappedBy="album")
+     * 
+     * @var array<Card> 
+     */
+    protected $cards;
+    
+    protected $owner;
+    
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Album
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+}
