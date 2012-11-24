@@ -37,12 +37,21 @@ abstract class AbstractRequestMapper implements MapperInterface
      */
     public function mapProperty($object, $property, $request)
     {
+        
         $capProperty = ucfirst($property);
         $method = 'set'.$capProperty;
     
         if (isset($request->$capProperty)) {
-            $object->$method($request->$capProperty);
-             
+            if (is_object($request->$capProperty) && isset($request->$capProperty->{'Id'})) {
+                $em =  $this->doctrine->getEntityManager();
+                $repo = "ApiModelBundle:".$capProperty;
+                $relatedObject = $em->find($repo, $request->$capProperty->{'Id'});
+                $object->$method($relatedObject);
+                
+            }else{
+                $object->$method($request->$capProperty); 
+            }
+                        
         }
          
         return $object;

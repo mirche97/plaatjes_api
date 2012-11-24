@@ -5,3 +5,7 @@
 album:
     type: rest
     resource: Api\ModelBundle\Controller\AlbumController
+    
+card:
+    type: rest
+    resource: Api\ModelBundle\Controller\CardController

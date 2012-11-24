@@ -1,13 +1,9 @@
 <?php
 namespace Api\ModelBundle\Controller;
 
-//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Api\CommonBundle\Controller\CommonController;
 use Symfony\Component\HttpFoundation\Request;
-//use Api\CommonBundle\Component\ApiRequest;
-use Api\CommonBundle\Component\ArrayMapper;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception;
 use Api\ModelBundle\Entity\Album;
 
 /**
@@ -105,6 +101,13 @@ class AlbumController extends CommonController
         return new Response("", 204, array());
    }
    
+   /**
+    * get an album entity
+    * 
+    * @param integer $albumId
+    * 
+    * @return Album
+    */
    protected function getAlbum($albumId)
    {
        $album = $this->em->getRepository('ApiModelBundle:Album')->findOneById($albumId);
