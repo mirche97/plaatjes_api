@@ -3,6 +3,7 @@ namespace Api\ModelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Api\ModelBundle\Entity\AlbumMeta;
 
 /**
  * Description of Album
@@ -21,11 +22,12 @@ class Album
     protected $id;
     
     /**
-     * @ORM\Column(name="title")
+     * @ORM\ManyToOne(targetEntity="AlbumMeta", inversedBy="albums")
+     * @ORM\JoinColumn(name="albummeta_id", referencedColumnName="id")
      * 
-     * @var string 
+     * @var AlbumMeta 
      */
-    protected $title;
+    protected $albumMeta;
     
     /**
      * @ORM\OneToMany(targetEntity="Card", mappedBy="album")
@@ -42,7 +44,13 @@ class Album
      */
     protected $owner;
     
-    
+    /**
+     * name, if a person has more of the same albums (same albumMeta)
+     * 
+     * @ORM\Column(name="name", type="string", nullable=true)
+     * @var string 
+     */
+    protected $name;
 
     public function __construct()
     {
@@ -71,26 +79,26 @@ class Album
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param string $title
+     * @param string $name
      * @return Album
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
     
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string 
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
    
     /**
@@ -127,5 +135,29 @@ class Album
         $this->cards[] = $card;
         
         return $this;
+    }
+    
+    /**
+     * set AlbumMeta
+     * 
+     * @param \Api\ModelBundle\Entity\AlbumMeta $albumMeta
+     * 
+     * @return \Api\ModelBundle\Entity\Album
+     */
+    public function setAlbumMeta(AlbumMeta $albumMeta)
+    {
+        $this->albumMeta = $albumMeta;
+        
+        return $this;
+    }
+    
+    /**
+     * get albumMeta
+     * 
+     * @return AlbumMeta
+     */
+    public function getAlbumMeta()
+    {
+        return $this->albumMeta;
     }
 }

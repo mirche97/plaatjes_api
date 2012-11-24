@@ -30,8 +30,9 @@ class AlbumMapper extends AbstractRequestMapper
              $album = $this->doctrine->getEntityManager()->find('ApiModelBundle:Album',$albumId);
          }
 
-         $album = $this->mapProperty($album, 'title', $request);
+         $album = $this->mapProperty($album, 'albumMeta', $request);
          $album = $this->mapProperty($album, 'owner', $request);
+         $album = $this->mapProperty($album, 'name', $request);
          
          return $album;
      }
