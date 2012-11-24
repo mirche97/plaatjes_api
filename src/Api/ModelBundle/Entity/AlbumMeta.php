@@ -82,7 +82,28 @@ class AlbumMeta
         return $this->id;
     }
 
-       
+    /**
+     * Set name
+     *
+     * @param string $title
+     * @return AlbumMeta
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }   
 
     /**
      * Set numberOfCards
