@@ -13,3 +13,7 @@ card:
 person:
     type: rest
     resource: Api\ModelBundle\Controller\PersonController
+    
+albumMeta:
+    type: rest
+    resource: Api\ModelBundle\Controller\AlbumMetaController
