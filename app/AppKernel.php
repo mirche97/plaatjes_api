@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Acme\HelloBundle\AcmeHelloBundle(),
             new Api\AdminBundle\ApiAdminBundle(),
             new Api\ModelBundle\ApiModelBundle(),
+            new Api\CommonBundle\ApiCommonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) { 

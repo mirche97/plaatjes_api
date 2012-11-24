@@ -1,0 +1,7 @@
+parameters:
+#    api_common.example.class: Api\CommonBundle\Example
+
+services:
+#    api_common.example:
+#        class: %api_common.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

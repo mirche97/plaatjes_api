@@ -1,3 +1,7 @@
+api_common:
+    resource: "@ApiCommonBundle/Resources/config/routing.yml"
+    prefix:   /
+
 api_model:
     resource: "@ApiModelBundle/Resources/config/routing.yml"
     #type:     rest
