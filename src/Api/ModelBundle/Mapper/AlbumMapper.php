@@ -7,6 +7,15 @@ use Api\ModelBundle\Entity\Album;
 class AlbumMapper extends AbstractRequestMapper
 {
     
+    /**
+     * 
+     * @param string  $data
+     * @param integer $albumId
+     * 
+     * @return Album
+     * 
+     * @throws \InvalidArgumentException
+     */
      public function map($data, $albumId=null)
      {
          $request = json_decode($data);  
@@ -20,14 +29,12 @@ class AlbumMapper extends AbstractRequestMapper
          } else {
              $album = $this->doctrine->getEntityManager()->find('ApiModelBundle:Album',$albumId);
          }
+
+         $album = $this->mapProperty($album, 'title', $request);
+         $album = $this->mapProperty($album, 'owner', $request);
          
-         if (isset($request->{'Title'})) {
-             $album->setTitle($request->{'Title'});
-         }
-      
-         if (isset($request->{'Owner'}->{'Id'})) {
-             
-         }
-         var_dump($album); die();
+         return $album;
      }
+     
+     
 }

@@ -4,6 +4,7 @@ namespace Api\CommonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
   Extend for all our controllers, a few overrides and general methods
@@ -42,51 +43,6 @@ class CommonController extends Controller
 
         $this->em = $this->getDoctrine()->getEntityManager();
     }
-
-//    /**
-//     * Visual entry point of the backend application
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function entryAction()
-//    {
-//        return $this->render('cruisetravelCommonBundle:Common:entry.' . $this->format . '.twig');
-//    }
-
-//    /**
-//     * Paginates the specified data
-//     * 
-//     * TODO: Might be possible that we throw an exception when we
-//     * are requesting a page that is below or above our page count etc.
-//     *
-//     * The paginator can paginate:
-//     * - array
-//     * - Doctrine\ORM\Query
-//     * - Doctrine\ORM\QueryBuilder
-//     * - Doctrine\ODM\MongoDB\Query\Query
-//     * - Doctrine\ODM\MongoDB\Query\Builder
-//     * - Doctrine\Common\Collection\ArrayCollection - any doctrine relation collection including
-//     * - ModelCriteria - Propel ORM query
-//     * - array with Solarium_Client and Solarium_Query_Select as elements
-//     * 
-//     * @param  mixed $data
-//     * @return mixed
-//     */
-//    protected function paginator($data)
-//    {
-//        $curPage = $this->get('request')->query->get('page', 1);
-//        
-//        if ($this->get('request')->query->get('maxResults') > 0) {
-//            $maxPerPage = $this->get('request')->query->get('maxResults');
-//        } else {
-//            $maxPerPage = $this->container->getParameter("rest.max_resource_per_page");
-//        }
-//
-//        $paginator = $this->get('knp_paginator');
-//        $pagination = $paginator->paginate($data, $curPage, $maxPerPage);
-//
-//        return $pagination;
-//    }
 
     /**
      * To easily retrieve an entity manager for the extending controllers
@@ -133,6 +89,17 @@ class CommonController extends Controller
         return $result;
     }
 
+    /**
+     * map data
+     * @param string $data
+     * @param string $bundle
+     * @param string $class
+     * @param integer $objectId
+     * 
+     * @return type
+     * 
+     * @throws \BadMethodCallException
+     */
     protected function mapData($data, $bundle, $class, $objectId=null)    
     {        
         if ($this->format == "json") {    
@@ -148,5 +115,40 @@ class CommonController extends Controller
             throw new \BadMethodCallException($this->format . " is currently not supported for this request");   
         }    
     
+    }
+    
+    /**
+     * process object
+     * 
+     * @param type $object
+     * 
+     * @throws HttpException
+     */
+    protected function processData($object)
+    {
+        if ($object->getId()) {
+            $object = $this->em->merge($object);
+        } else {
+            $this->em->persist($object);
+        }
+        
+        $errors = $this->get('validator')->validate($object);
+        
+        if (count($errors) == 0) {            
+            try {                
+                $this->em->flush();            
+            } catch (\PDOException $e) {                
+                throw new HttpException(400, "Unable to store object (error code returned: ".$e->getCode().")");
+            }       
+        } else {            
+            $iterator = $errors->getIterator();            
+            $msg = "Bad data\n";            
+            foreach ($iterator as $violation) {                
+                $msg .= $violation->getMessageTemplate() . 
+                        ' (field: ' . $violation->getPropertyPath() . 
+                        ', value: '. $violation->getInvalidValue() . ")\n";            
+            }            
+            throw new HttpException(400, $msg);                   
+        }    
     }
 }
