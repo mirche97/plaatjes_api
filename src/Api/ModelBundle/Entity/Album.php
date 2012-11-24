@@ -35,10 +35,10 @@ class Album
     protected $cards;
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="albums")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      * 
-     * @var User 
+     * @var Person 
      */
     protected $owner;
     

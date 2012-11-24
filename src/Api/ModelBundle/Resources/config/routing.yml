@@ -9,3 +9,7 @@ album:
 card:
     type: rest
     resource: Api\ModelBundle\Controller\CardController
+    
+person:
+    type: rest
+    resource: Api\ModelBundle\Controller\PersonController

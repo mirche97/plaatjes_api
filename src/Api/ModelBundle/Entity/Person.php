@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Entity of User
+ * Entity of Person
  *
  * @ORM\Entity()
  * @ORM\Table()
  */
-class User {
+class Person {
     
     /**
      * @ORM\Id
@@ -58,15 +58,15 @@ class User {
     protected $albums;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
+     * @ORM\ManyToMany(targetEntity="Person", mappedBy="myFriends")
      */
     protected $friendsWithMe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="friends",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_person_id", referencedColumnName="id")}
      *      )
      */
     protected $myFriends;
@@ -106,7 +106,7 @@ class User {
      * Set firstName
      *
      * @param string $firstName
-     * @return User
+     * @return Person
      */
     public function setFirstName($firstName)
     {
@@ -129,7 +129,7 @@ class User {
      * Set lastName
      *
      * @param string $lastName
-     * @return User
+     * @return Person
      */
     public function setLastName($lastName)
     {
@@ -152,7 +152,7 @@ class User {
      * Set email
      *
      * @param string $email
-     * @return User
+     * @return Person
      */
     public function setEmail($email)
     {
@@ -175,7 +175,7 @@ class User {
      * Set nickname
      *
      * @param string $nickname
-     * @return User
+     * @return Person
      */
     public function setNickname($nickname)
     {
@@ -198,7 +198,7 @@ class User {
      * Add albums
      *
      * @param Api\ModelBundle\Entity\Album $albums
-     * @return User
+     * @return Person
      */
     public function addAlbum(\Api\ModelBundle\Entity\Album $albums)
     {
@@ -230,10 +230,10 @@ class User {
     /**
      * Add friendsWithMe
      *
-     * @param Api\ModelBundle\Entity\User $friendsWithMe
-     * @return User
+     * @param Api\ModelBundle\Entity\Person $friendsWithMe
+     * @return Person
      */
-    public function addFriendsWithMe(\Api\ModelBundle\Entity\User $friendsWithMe)
+    public function addFriendsWithMe(\Api\ModelBundle\Entity\Person $friendsWithMe)
     {
         $this->friendsWithMe[] = $friendsWithMe;
     
@@ -243,9 +243,9 @@ class User {
     /**
      * Remove friendsWithMe
      *
-     * @param Api\ModelBundle\Entity\User $friendsWithMe
+     * @param Api\ModelBundle\Entity\Person $friendsWithMe
      */
-    public function removeFriendsWithMe(\Api\ModelBundle\Entity\User $friendsWithMe)
+    public function removeFriendsWithMe(\Api\ModelBundle\Entity\Person $friendsWithMe)
     {
         $this->friendsWithMe->removeElement($friendsWithMe);
     }
@@ -263,10 +263,10 @@ class User {
     /**
      * Add myFriends
      *
-     * @param Api\ModelBundle\Entity\User $myFriends
-     * @return User
+     * @param Api\ModelBundle\Entity\Person $myFriends
+     * @return Person
      */
-    public function addMyFriend(\Api\ModelBundle\Entity\User $myFriends)
+    public function addMyFriend(\Api\ModelBundle\Entity\Person $myFriends)
     {
         $this->myFriends[] = $myFriends;
     
@@ -276,9 +276,9 @@ class User {
     /**
      * Remove myFriends
      *
-     * @param Api\ModelBundle\Entity\User $myFriends
+     * @param Api\ModelBundle\Entity\Person $myFriends
      */
-    public function removeMyFriend(\Api\ModelBundle\Entity\User $myFriends)
+    public function removeMyFriend(\Api\ModelBundle\Entity\Person $myFriends)
     {
         $this->myFriends->removeElement($myFriends);
     }
