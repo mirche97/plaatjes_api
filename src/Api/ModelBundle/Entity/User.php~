@@ -1,0 +1,83 @@
+<?php
+namespace Api\ModelBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * Entity of User
+ *
+ * @ORM\Entity()
+ * @ORM\Table()
+ */
+class User {
+    
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * 
+     * @var integer 
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(name="firstname")
+     * 
+     * @var string 
+     */
+    protected $firstName;
+    
+    /**
+     * @ORM\Column(name="lastname")
+     * 
+     * @var string 
+     */
+    protected $lastName;
+    
+    /**
+     * @ORM\Column(name="email")
+     * 
+     * @var string 
+     */
+    protected $email;
+    
+    /**
+     * @ORM\Column(name="nickname")
+     * 
+     * @var string 
+     */
+    protected $nickname;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Album", mappedBy="owner")
+     * 
+     * @var type 
+     */
+    protected $albums;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
+     */
+    protected $friendsWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $myFriends;
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+?>

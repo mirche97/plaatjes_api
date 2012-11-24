@@ -27,13 +27,19 @@ class Album
      */
     protected $title;
     
-    /*r*
+    /**
      * @ORM\OneToMany(targetEntity="Card", mappedBy="album")
      * 
      * @var array<\api\ModelBundle\Entity\Card> 
      */
     protected $cards;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * 
+     * @var User 
+     */
     protected $owner;
     
     
