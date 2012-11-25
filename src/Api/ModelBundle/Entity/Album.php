@@ -4,6 +4,7 @@ namespace Api\ModelBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Api\ModelBundle\Entity\AlbumMeta;
+use Api\ModelBundle\Entity\Person;
 
 /**
  * Description of Album
@@ -159,5 +160,29 @@ class Album
     public function getAlbumMeta()
     {
         return $this->albumMeta;
+    }
+    
+        /**
+     * set AlbumMeta
+     * 
+     * @param \Api\ModelBundle\Entity\Person $owner
+     * 
+     * @return \Api\ModelBundle\Entity\Album
+     */
+    public function setOwner(Person $owner)
+    {
+        $this->owner = $owner;
+        
+        return $this;
+    }
+    
+    /**
+     * get albumMeta
+     * 
+     * @return Person
+     */
+    public function getOwnera()
+    {
+        return $this->owner;
     }
 }

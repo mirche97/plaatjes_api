@@ -28,7 +28,7 @@ class AlbumMetaFixtures extends AbstractFixture implements OrderedFixtureInterfa
     
     public function getOrder()
     {
-        return 1;
+        return 10;
     }
 }
 
