@@ -82,7 +82,7 @@ class Card {
      * @param api\ModelBundle\Entity\Album $album
      * @return Card
      */
-    public function setAlbum(\api\ModelBundle\Entity\Album $album = null)
+    public function setAlbum(\api\ModelBundle\Entity\Album $album)
     {
         $this->album = $album;
     
