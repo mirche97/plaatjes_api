@@ -3,6 +3,7 @@ namespace Api\ModelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as SER;
 
 
 /**
@@ -12,51 +13,53 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  */
 class Person {
-    
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @var integer 
+     * @SER\Groups("Id")
+     *
+     *
+     * @var integer
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(name="firstname")
-     * 
-     * @var string 
+     * @SER\Groups("Person")
+     * @var string
      */
     protected $firstName;
-    
+
     /**
      * @ORM\Column(name="lastname")
-     * 
-     * @var string 
+     * @SER\Groups("Person")
+     * @var string
      */
     protected $lastName;
-    
+
     /**
      * @ORM\Column(name="email")
-     * 
-     * @var string 
+     * @SER\Groups("Person")
+     * @var string
      */
     protected $email;
-    
+
     /**
      * @ORM\Column(name="nickname")
-     * 
-     * @var string 
+     * @SER\Groups("Person")
+     * @var string
      */
     protected $nickname;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Album", mappedBy="owner")
-     * 
-     * @var type 
+     * @SER\Groups("Person")
+     * @var type
      */
     protected $albums;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Person", mappedBy="myFriends")
      */
@@ -70,8 +73,8 @@ class Person {
      *      )
      */
     protected $myFriends;
-    
-    
+
+
     /**
      * Constructor
      */
@@ -81,21 +84,21 @@ class Person {
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-     /**     
-     * Set $id     
-     *      
-     * @param int $id     
-     */    
-    public function setId($id)    
-    {        
-        $this->id = $id;        
+
+     /**
+     * Set $id
+     *
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -111,14 +114,14 @@ class Person {
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-    
+
         return $this;
     }
 
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -134,14 +137,14 @@ class Person {
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-    
+
         return $this;
     }
 
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -157,14 +160,14 @@ class Person {
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -180,14 +183,14 @@ class Person {
     public function setNickname($nickname)
     {
         $this->nickname = $nickname;
-    
+
         return $this;
     }
 
     /**
      * Get nickname
      *
-     * @return string 
+     * @return string
      */
     public function getNickname()
     {
@@ -203,7 +206,7 @@ class Person {
     public function addAlbum(\Api\ModelBundle\Entity\Album $albums)
     {
         $this->albums[] = $albums;
-    
+
         return $this;
     }
 
@@ -220,7 +223,7 @@ class Person {
     /**
      * Get albums
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getAlbums()
     {
@@ -236,7 +239,7 @@ class Person {
     public function addFriendsWithMe(\Api\ModelBundle\Entity\Person $friendsWithMe)
     {
         $this->friendsWithMe[] = $friendsWithMe;
-    
+
         return $this;
     }
 
@@ -253,7 +256,7 @@ class Person {
     /**
      * Get friendsWithMe
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getFriendsWithMe()
     {
@@ -269,7 +272,7 @@ class Person {
     public function addMyFriend(\Api\ModelBundle\Entity\Person $myFriends)
     {
         $this->myFriends[] = $myFriends;
-    
+
         return $this;
     }
 
@@ -286,7 +289,7 @@ class Person {
     /**
      * Get myFriends
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getMyFriends()
     {

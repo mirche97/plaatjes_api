@@ -3,6 +3,7 @@ namespace Api\ModelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as SER;
 use Api\ModelBundle\Entity\AlbumMeta;
 use Api\ModelBundle\Entity\Person;
 
@@ -17,39 +18,42 @@ class Album
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @var integer 
+     * @SER\Groups("Id")
+     *
+     * @var integer
      */
     protected $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="AlbumMeta", inversedBy="albums")
      * @ORM\JoinColumn(name="albummeta_id", referencedColumnName="id")
-     * 
-     * @var AlbumMeta 
+     * @SER\Groups("Album")
+     *
+     * @var AlbumMeta
      */
     protected $albumMeta;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Card", mappedBy="album")
-     * 
-     * @var array<\api\ModelBundle\Entity\Card> 
+     * @SER\Groups("Album")
+     * @var array<\api\ModelBundle\Entity\Card>
      */
     protected $cards;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="albums")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
-     * 
-     * @var Person 
+     * @SER\Groups("Album")
+     *
+     * @var Person
      */
     protected $owner;
-    
+
     /**
      * name, if a person has more of the same albums (same albumMeta)
-     * 
+     *
      * @ORM\Column(name="name", type="string", nullable=true)
-     * @var string 
+     * @var string
      */
     protected $name;
 
@@ -57,22 +61,22 @@ class Album
     {
         $this->cards = new ArrayCollection();
     }
-    
-    /**     
-     * Set $id     
-     *      
-     * @param int $id     
-     */    
-    public function setId($id)    
-    {        
-        $this->id = $id;    
-        
+
+    /**
+     * Set $id
+     *
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -88,20 +92,20 @@ class Album
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-   
+
     /**
      * Get cards
      * @return array<Card>
@@ -110,75 +114,75 @@ class Album
     {
         return $this->cards;
     }
-    
+
     /**
      * set cards
      * @param \Doctrine\Common\Collections\ArrayCollection $cards
-     * 
+     *
      * @return \api\ModelBundle\Entity\Album
      */
     public function setCards(ArrayCollection $cards)
     {
         $this->cards = $cards;
-        
+
         return $this;
-    }   
-    
+    }
+
     /**
      * add a card
-     * 
+     *
      * @param \api\ModelBundle\Entity\Card $card
-     * 
+     *
      * @return \api\ModelBundle\Entity\Album
      */
     public function addCard(Card $card)
     {
         $this->cards[] = $card;
-        
+
         return $this;
     }
-    
+
     /**
      * set AlbumMeta
-     * 
+     *
      * @param \Api\ModelBundle\Entity\AlbumMeta $albumMeta
-     * 
+     *
      * @return \Api\ModelBundle\Entity\Album
      */
     public function setAlbumMeta(AlbumMeta $albumMeta)
     {
         $this->albumMeta = $albumMeta;
-        
+
         return $this;
     }
-    
+
     /**
      * get albumMeta
-     * 
+     *
      * @return AlbumMeta
      */
     public function getAlbumMeta()
     {
         return $this->albumMeta;
     }
-    
+
         /**
      * set AlbumMeta
-     * 
+     *
      * @param \Api\ModelBundle\Entity\Person $owner
-     * 
+     *
      * @return \Api\ModelBundle\Entity\Album
      */
     public function setOwner(Person $owner)
     {
         $this->owner = $owner;
-        
+
         return $this;
     }
-    
+
     /**
      * get albumMeta
-     * 
+     *
      * @return Person
      */
     public function getOwnera()

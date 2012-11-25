@@ -3,6 +3,7 @@ namespace Api\ModelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\SerializerBundle\Annotation as SER;
 use Api\ModelBundle\Enum\CardStatus;
 
 
@@ -14,41 +15,44 @@ use Api\ModelBundle\Enum\CardStatus;
  * @ORM\Table()
  */
 class Card {
-   
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @var integer 
+     * @SER\Groups("Id")
+     * @var integer
      */
     protected $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Album", inversedBy="cards")
-     * @ORM\JoinColumn(name="album_id", referencedColumnName="id") 
-     * 
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     * @SER\Groups("Card")
+     *
      * @var Album
      */
     protected $album;
-    
+
     /**
      * number
      * @ORM\Column(name="number", type="integer")
+     * @SER\Groups("Card")
      * @var integer
      */
     protected $number;
-    
+
     /**
      * status
      * @ORM\Column(name="status", type="integer")
-     * @var integer 
+     * @SER\Groups("Card")
+     * @var integer
      */
     protected $status;
-    
+
     /**
      * possible statuses
-     * @var array 
+     * @var array
      */
     protected $statuses = array(
         CardStatus::IN_ALBUM =>"in album",
@@ -56,20 +60,20 @@ class Card {
         CardStatus::RESERVED =>"gereserveerd"
     );
 
-    /**     
-     * Set $id     
-     *      
-     * @param int $id     
-     */    
-    public function setId($id)    
-    {        
-        $this->id = $id;        
+    /**
+     * Set $id
+     *
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,14 +89,14 @@ class Card {
     public function setAlbum(\api\ModelBundle\Entity\Album $album)
     {
         $this->album = $album;
-    
+
         return $this;
     }
 
     /**
      * Get album
      *
-     * @return api\ModelBundle\Entity\Album 
+     * @return api\ModelBundle\Entity\Album
      */
     public function getAlbum()
     {
@@ -108,14 +112,14 @@ class Card {
     public function setNumber($number)
     {
         $this->number = $number;
-    
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumber()
     {
@@ -131,27 +135,27 @@ class Card {
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
         return $this->status;
     }
-   
+
     /**
      * get status as string
-     * 
+     *
      * @return string
      */
     public function getStatusString(){
-        
+
         return $this->statuses[$this->status];
     }
 }
