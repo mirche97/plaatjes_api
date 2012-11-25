@@ -37,7 +37,7 @@ class AlbumMeta
 
     /**
      * @ORM\Column(name="published_by", type="string", nullable=true)
-     *
+     * @SER\Groups("AlbumMeta")
      * @var string
      */
     protected $publishedBy;
@@ -48,6 +48,13 @@ class AlbumMeta
      * @var integer
      */
     protected $year;
+
+     /**
+     * @ORM\Column(name="image", type="string", nullable=true)
+     * @SER\Groups("AlbumMeta")
+     * @var string
+     */
+    protected $image;
 
     /**
      * @ORM\OneToMany(targetEntity="Album", mappedBy="albumMeta")
@@ -174,5 +181,28 @@ class AlbumMeta
     public function getYear()
     {
         return $this->year;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return AlbumMeta
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
